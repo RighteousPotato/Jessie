@@ -1,19 +1,20 @@
 {
   "name": "jessie_js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Custom bot for the Team Rocket Maidstone Discord server",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": "github:RighteousPotato/Jessie",
   "author": "Joe",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^11.3.2",
+    "discord.js": "^11.4.0",
     "fs": "0.0.1-security",
     "node-schedule": "^1.3.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
-    "winston": "^2.4.2"
+    "winston": "^2.4.3"
   }
 }

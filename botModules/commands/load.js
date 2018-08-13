@@ -9,7 +9,7 @@ module.exports = {
     execute(message, args) {
 		if(args.includes('all')) args = ['commands', 'handlers', 'jobs'];
 		if(args.includes('commands')){
-			const oldList = message.client.commands.map(command=> command.name);
+			const oldList = message.client.commands ? message.client.commands.map(command=> command.name) : [];
 			message.client.loadCommands();
 			const newList = message.client.commands.map(command=> command.name);
 			const removedCmds = oldList.filter(command=> !newList.includes(command));
@@ -26,7 +26,7 @@ module.exports = {
 			message.channel.send(msg);
 		};
 		if(args.includes('handlers')){
-			const oldList = message.client.handlers.map((value, key)=> key);
+			const oldList = message.client.handlers ? message.client.handlers.map((value, key)=> key) : [];
 			message.client.loadHandlers();
 			const newList = message.client.handlers.map((value, key)=> key);
 			const removedHands = oldList.filter(handler=> !newList.includes(handler));
@@ -43,7 +43,7 @@ module.exports = {
 			message.channel.send(msg);
 		};
 		if(args.includes('jobs')){
-			const oldList = message.client.jobs.map((value, key)=> key);
+			const oldList = message.client.jobs ? message.client.jobs.map((value, key)=> key) : [];
 			message.client.loadJobs();
 			const newList = message.client.jobs.map((value, key)=> key);
 			const removedJobs = oldList.filter(job=> !newList.includes(job));

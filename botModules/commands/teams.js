@@ -15,8 +15,8 @@ module.exports = {
 			];
 		const server = message.client.guilds.get(ids.homeSrv);
 		await server.fetchMembers();
-		for(const x in teams){
-			if(!teams[x].emoji) teams[x].emoji = server.emojis.find('name', teams[x].name).toString();
+		for(const ind in teams){
+			if(!teams[ind].emoji) teams[ind].emoji = server.emojis.find(emoji=>emoji.name==teams[ind].name).toString();
 		};
 		server.members.forEach(member=>{
 			const team = member.user.bot ? teams[4] : teams.find(x=>member.roles.has(x.id)) || teams[3];

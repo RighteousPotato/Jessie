@@ -1,4 +1,5 @@
 const fs = require('fs');
+const Discord = require('discord.js');
 let board = require('../../data/leaderboard.json');
 const path = '.\\data\\leaderboard.JSON';
 
@@ -20,9 +21,10 @@ module.exports = {
 				console.log(err);
 			};
 		};
-		const embed = message.embeds[0].toRichEmbed()
+		const embed = new Discord.RichEmbed(message.embeds[0])
 			.setColor(message.guild.members.get(message.client.user.id).displayColor)
-			.setFooter('Last updated');
+			.setFooter('Last updated')
+			.setTimestamp();
 		embed.author.name='Reporting Leaderboard ('+ new Date().toDateString().match(/(\w*) (\w*) /)[2]+')';
 		bMsg.edit(embed);
 	}

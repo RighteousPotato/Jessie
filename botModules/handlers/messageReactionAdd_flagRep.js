@@ -6,7 +6,7 @@ module.exports = {
 	on: 'messageReactionAdd_flagRep',
 	async execute(message, messageReaction, user){
 		const client = message.client;
-		const emb = message.embeds[0].toRichEmbed();
+		const emb = new Discord.RichEmbed(message.embeds[0]);
 		if(messageReaction.emoji=='🗑'){
 			try{
 				const msg = await client.channels.get(emb.fields[0].value).fetchMessage(emb.fields[1].value);

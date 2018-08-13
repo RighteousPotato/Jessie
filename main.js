@@ -26,5 +26,10 @@ client.login(token)
 		log.error(e);
 		process.exit(0);
 	});
-
+process.on('unhandledRejection', (error,promise) =>{
+	log.warn(`Uncaught Promise Rejection:\n${error.stack}`);
+});
+process.on('warning', (error) =>{
+	log.warn(`Node warning: ${error.name}\n${error.message}\n${'='.repeat(55)}\n${error.stack}`);
+});
 module.exports = client;

@@ -8,6 +8,6 @@ module.exports = {
 	execute(member){
 		if(member.guild.id!=ids.homeSrv) return;
 		
-		usrLog.info(`${member} joined the server!`);
+		usrLog.info(`A user joined the server!\n${member.nickname||member.user.username} / ${member.id}`);
 	}
 };

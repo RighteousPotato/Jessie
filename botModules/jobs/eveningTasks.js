@@ -5,7 +5,7 @@ const path = '.\\data\\untrusted.json';
 const sb = require('../sb.js');
 
 module.exports = {
-	schedule: {hour: 22, minute: 0},
+	schedule: {hour: 23, minute: 30},
 	async job(){
 		if(!this.guilds.has(ids.homeSrv)) return log.error('Client doesn\'t have access to homeSrv, can\'t run eveningTasks');
 		const server = this.guilds.get(ids.homeSrv);
@@ -31,7 +31,6 @@ module.exports = {
 		if(adds.length>0) usrLog.info(msg);
 		if(errs.length>0) usrLog.error(eMsg);
 		
-		log.info('Resetting Glen\'s stats...');
 		sb.resetBoard(this.users.get('294950541572702219'));
 	}
 };

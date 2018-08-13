@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const sched = require('node-schedule');
 const {log} = require('./logger.js');
+const util = require ('util');
 
 /**************************************************
 ##	RichEmbedExt
@@ -42,9 +43,10 @@ class RichEmbedExt extends Discord.RichEmbed{
 **************************************************/
 
 function toRichEmbed(){
-	log.warn('Using toRichEmbed');
 	return new Discord.RichEmbed(this);
-	/* const rEmbed = new Discord.RichEmbed();
+	/* log.warn('Using toRichEmbed');
+	//return new Discord.RichEmbed(this);
+	const rEmbed = new Discord.RichEmbed();
 	if(this.author) rEmbed.setAuthor(this.author.name, this.author.iconURL, this.author.url);
 	rEmbed.setColor(this.color);
 	if(this.description) rEmbed.setDescription(this.description);
@@ -91,14 +93,14 @@ const colors = {
 };
 
 //EXTEND DISCORD.JS
-Discord.RichEmbed = RichEmbedExt;		//Modify the RichEmbed constructor to allow passing a MessageEmbed
-if(!Discord.MessageEmbed.prototype.toRichEmbed){	//Convenience function for new RichEmbed(MessageEmbed)
-	Discord.MessageEmbed.prototype.toRichEmbed = toRichEmbed;
+//Discord.RichEmbed = RichEmbedExt;
+if(!Discord.MessageEmbed.prototype.toRichEmbed){
+	Discord.MessageEmbed.prototype.toRichEmbed = util.deprecate(toRichEmbed, 'MessageEmbed#toRichEmbed: use new RichEmbed(MessageEmbed) instead');
 };
-if(!Discord.TextChannel.prototype._send){			//Modify channel.send to allow sending a MessageEmbed
+/* if(!Discord.TextChannel.prototype._send){			//Modify channel.send to allow sending a MessageEmbed
 	Discord.TextChannel.prototype._send = Discord.TextChannel.prototype.send;
 	Discord.TextChannel.prototype.send = sendExt;
-};
+}; */
 Discord.Constants.Colors = Object.assign(Discord.Constants.Colors, colors);
 
 module.exports = {

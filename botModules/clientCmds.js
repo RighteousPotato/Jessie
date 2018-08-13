@@ -15,7 +15,7 @@ function loadCommands(){
 	};
 	this.commands = newCommands;
 	log.info(`${this.commands.size} commands loaded:\n`+this.commands.map((command, name)=>` - ${name}`).join('\n'));
-}
+};
 
 function loadHandlers(){
 	log.debug('Loading handlers...');
@@ -33,7 +33,7 @@ function loadHandlers(){
 		log.debug(`\t${fileName} loaded`);
 	});
 	log.info(`${this.handlers.size} handlers loaded:\n`+this.handlers.map((handler, name)=>` - ${name}`).join('\n'));
-}
+};
 
 function loadJobs(){
 	this.cancelJobs();
@@ -50,7 +50,7 @@ function loadJobs(){
 		log.debug(`\t${fileName} scheduled for ${job.nextInvocation().toJSON()}`);
 	};
 	log.info(`${this.jobs.size} jobs loaded:\n`+this.jobs.map((job, name)=>` - ${name} sched for ${job.nextInvocation().toJSON()}`).join('\n'));
-}
+};
 
 function cancelJobs(){
 	if(!this.jobs) return;

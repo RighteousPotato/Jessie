@@ -50,7 +50,7 @@ sb.reqBoard = function(){
 }
 sb.resetBoard = async function(user=''){
 	if(!this.allAvailable('resetBoard')) return;
-	
+	log.info(`Resetting leaberboard for ${user||'all'}.`);
 	const msgFilter = (response)=>{
 		return response.author.id==ids.meowth;
 	};
