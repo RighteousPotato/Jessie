@@ -8,6 +8,6 @@ module.exports = {
 	execute(member){
 		if(member.guild.id!=ids.homeSrv) return;
 		
-		usrLog.warn(`A user left the server!\n${member.nickname||member.user.username} / ${member.id}`);
+		usrLog.warn(`A user left the server!\n${member.displayName} / ${member.id}`);
 	}
 };

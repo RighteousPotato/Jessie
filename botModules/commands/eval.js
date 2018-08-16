@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const {ids} = require('../../data/config.json');
 const {log} = require('../logger.js');
+const moment = require('moment');
 
 module.exports = {
     name: 'eval',
@@ -16,7 +17,7 @@ module.exports = {
 		}catch(err){
 			const source = message.channel.type=='text' ? `${message.guild.name}/${message.channel.name}` : 'DM';
 			const errMsg = `EVAL ERROR! Details and stack below\n${'='.repeat(55)}`
-				+`\n\tDate: ${new Date().toJSON()}`
+				+`\n\tDate: ${moment().toISOString(true)}`
 				+`\n\tSource: ${source}/${message.author.username}`
 				+`\n${'='.repeat(55)}\n${args}\n${'='.repeat(55)}`
 				+`\n${err.stack}\n${'='.repeat(55)}`;

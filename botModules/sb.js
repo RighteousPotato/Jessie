@@ -48,14 +48,14 @@ sb.reqBoard = function(){
 			log.error('Couldn\'t request leaderboard');
 		});
 }
-sb.resetBoard = async function(user=''){
+sb.resetBoard = async function(user='all'){
 	if(!this.allAvailable('resetBoard')) return;
-	log.info(`Resetting leaberboard for ${user||'all'}.`);
+	log.debug(`Resetting leaberboard for ${user} (${user.username}).`);
 	const msgFilter = (response)=>{
 		return response.author.id==ids.meowth;
 	};
-	const reactFilter = (reaction, user)=>{
-		return reaction.emoji.name=='❎' && user.id==ids.meowth;
+	const reactFilter = (reaction, reactor)=>{
+		return reaction.emoji.name=='❎' && reactor.id==ids.meowth;
 	};
 	const options = {max: 1, time: 10000, errors: ['time']};
 	

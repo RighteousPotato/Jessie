@@ -36,12 +36,12 @@ module.exports = {
 	}
 };
 
-function cardBio(card){
-	let msg = 'A '+card.playstyle.toLowerCase()
-			+' level **'+card.trainer_level+ '** '
-			+card.team+' '+card.title.toLowerCase()+', **'
-			+card.in_game_username
-			+'** is focused on '+card.goal.toLowerCase();
-	msg += (card.raid_average>0 ? ' and typically raids about '+card.raid_average+' times a week.' : '.');
+function cardBio(data){
+	let msg = 'A '+data.playstyle.toLowerCase()
+			+' level **'+data.trainer_level+ '** '
+			+data.team+' '+data.title.toLowerCase()+', **'
+			+data.in_game_username
+			+'** is focused on '+data.goal.toLowerCase();
+	msg += (data.raid_average>0 ? ' and typically raids about '+data.raid_average+' times a week.' : '.');
 	return msg;
 };

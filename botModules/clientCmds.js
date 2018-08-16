@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const sched = require('node-schedule');
 const {log} = require('./logger.js');
+const moment = require('moment');
 
 function loadCommands(){
 	log.debug('Loading commands...')
@@ -44,12 +45,12 @@ function loadJobs(){
 		delete require.cache[require.resolve(`./jobs/${fileName}`)];
 		const file = require(`./jobs/${fileName}`);
 		const job = sched.scheduleJob(file.schedule, file.job.bind(this));
-		job.on('scheduled', function(name, time){log.info(`${name} running. Next run @ ${time.toJSON()}`)}.bind(null, fileName));
+		job.on('scheduled', function(name, time){log.info(`JOB: ${name} running. Next run @ ${momet(time).toISOString(true)}`)}.bind(null, fileName));
 		job.on('canceled', function(name, time){log.debug(`\t${name} canceled.`)}.bind(null, fileName));
 		this.jobs.set(fileName, job);
-		log.debug(`\t${fileName} scheduled for ${job.nextInvocation().toJSON()}`);
+		log.debug(`\t${fileName} scheduled for ${moment(job.nextInvocation()).toISOString(true)}`);
 	};
-	log.info(`${this.jobs.size} jobs loaded:\n`+this.jobs.map((job, name)=>` - ${name} sched for ${job.nextInvocation().toJSON()}`).join('\n'));
+	log.info(`${this.jobs.size} jobs loaded:\n`+this.jobs.map((job, name)=>` - ${name} sched for ${moment(job.nextInvocation()).toISOString(true)}`).join('\n'));
 };
 
 function cancelJobs(){

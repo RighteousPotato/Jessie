@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const {ids} = require('../../data/config.json');
+const moment = require('moment');
 
 module.exports = {
     name: 'create',
@@ -14,7 +15,6 @@ module.exports = {
 		const newChan = await message.guild.createChannel(args.join('-'), 'TEXT', message.channel.permissionOverwrites)
 		await newChan.setParent(message.channel.parentID);
 		message.channel.send(`<#${newChan.id}> created!`);
-		const dStr = new Date().toString().match(/(.+\d{2} \d{4}) (\d{2}:\d{2})/);
-		newChan.send(`<@${message.author.id}> created this channel on ${dStr[1]} at ${dStr[2]}.`);
+		newChan.send(`<@${message.author.id}> created this channel on ${moment().format('DD/MM/YY [at] h:mm A')}.`);
 	}
 };

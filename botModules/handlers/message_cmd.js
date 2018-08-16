@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const {prefix} = require('../../data/config.json');
 const {log} = require('../logger.js');
+const moment = require('moment');
 
 module.exports = {
 	on: 'message_cmd',
@@ -66,7 +67,7 @@ module.exports = {
 			log.debug(`CMD-${commandName} for ${message.author.username} in `+(message.channel.type=='text' ? `${message.guild.name}/${message.channel.name}` : 'DM'));
 			command.execute(message, args);
 		}catch(err){
-			let errMsg = `${command.name} errored! Details and stack below\n${'='.repeat(55)}\n  Date: ${new Date().toJSON()}\n  Source: `;
+			let errMsg = `${command.name} errored! Details and stack below\n${'='.repeat(55)}\n  Date: ${moment().toISOString(true)}\n  Source: `;
 			errMsg+= message.channel.type=='text' ? `${message.guild.name}/${message.channel.name}` : 'DM';
 			errMsg+=`/${message.author.username}\n  Args:`;
 			if(args.length>0){
