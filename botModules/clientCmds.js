@@ -45,7 +45,7 @@ function loadJobs(){
 		delete require.cache[require.resolve(`./jobs/${fileName}`)];
 		const file = require(`./jobs/${fileName}`);
 		const job = sched.scheduleJob(file.schedule, file.job.bind(this));
-		job.on('scheduled', function(name, time){log.info(`JOB: ${name} running. Next run @ ${momet(time).toISOString(true)}`)}.bind(null, fileName));
+		job.on('scheduled', function(name, time){log.info(`JOB: ${name} running. Next run @ ${moment(time).toISOString(true)}`)}.bind(null, fileName));
 		job.on('canceled', function(name, time){log.debug(`\t${name} canceled.`)}.bind(null, fileName));
 		this.jobs.set(fileName, job);
 		log.debug(`\t${fileName} scheduled for ${moment(job.nextInvocation()).toISOString(true)}`);
