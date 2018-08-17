@@ -27,8 +27,14 @@ module.exports = {
 					.setTimestamp(new Date(msg.createdTimestamp));
 				msg.author.send(warnMsg, warnEmb);
 			}catch(e){
-				log.error(e);
-				emb.setDescription(emb.description+`\n**Couldn't remove message. Already deleted?**`)
+				let rsn;
+				if(e.message && e.message==='Unknown Message'){
+					rsn = 'Already deleted'
+				}else{
+					client.emit('error', e);
+					rsn = 'Unknown error';
+				};
+				emb.setDescription(emb.description+`\n**Couldn't remove message. ${rsn}!**`)
 					.setTitle('Error')
 					.setColor('RED');
 			};

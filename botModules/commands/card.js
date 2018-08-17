@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const req = require('request-promise-native');
+const req = require('snekfetch');
 const {ids} = require('../../data/config.json');
 const {log} = require('../logger.js');
 
@@ -13,7 +13,7 @@ module.exports = {
     async execute(message, args) {
 		let msg;
 		try{
-			const data = JSON.parse(await req('https://sil.ph/'+args[0]+'.json')).data;
+		const data = (await req.get(`https://sil.ph/${args[0]}.json`)).body.data;
 			if(!data) throw 'Private';
 			data.team = data.team.toLowerCase();
 			const color = data.team==='teamless' ? 0 : message.client.guilds.get(ids.homeSrv).roles.get(ids[data.team]).color;
@@ -28,7 +28,7 @@ module.exports = {
 				.addField('XP', data.xp, true)
 				.addField('Caught', data.pokedex_count, true);
 		}catch(e){
-			if(e.statusCode && e.statusCode!=404) log.warn(`Card failed with code ${e.statusCode}\n${e.message}\n${e.options.uri}`);
+			if(e.status && e.status!=404) log.warn(`Card failed with code ${e.status}\n${e.message}\nhttps://sil.ph/${args[0]}.json`);
 			msg = e==='Private' ? 'That card is marked as private.' : 'I couldn\'t find that card.';
 		}finally{
 			message.channel.send(msg);

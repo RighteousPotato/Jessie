@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 const Winston = require('winston');
 const {webhooks} = require('../data/auth.json');
 const {ids} = require('../data/config.json');
+const moment = require('moment');
+const util = require('util');
 
 class DiscordWH extends Winston.Transport{
 	constructor(options){
@@ -19,7 +21,7 @@ class DiscordWH extends Winston.Transport{
 			.setColor((Winston.config.allColors[level] || 'DEFAULT').toUpperCase())
 			.setDescription(msg||'LOG')
 			.setTimestamp();
-		this.client.send(m, emb)
+		this.client.send(m, {embeds:[emb], split:true})
 			.catch((e)=>{
 				console.log(`Couldn\'t log ${level} to Discord!`);
 				console.error(e);
@@ -30,11 +32,29 @@ class DiscordWH extends Winston.Transport{
 
 Winston.transports.DiscordWH = DiscordWH;
 
+function consoleFormat(options){
+	return moment().format('HH:mm:ss:SSSZ') +' '+ Winston.config.colorize(options.level, options.level.toUpperCase()) +': '+ (options.message ? options.message : '');
+};
+
+function fileFormat(options){
+	let msg = moment().format('DD/MM HH:mm:ss:SSSZ') +' '+ options.level.toUpperCase() +'=> Msg: ';
+	msg+= (options.message ? options.message : '-none-')
+	if(options.meta){
+		if(typeof options.meta !== 'object'){
+			msg+= ', Meta: '+options.meta;
+		}else if(Object.keys(options.meta).length>0){
+			msg+= ', Meta: ' +util.inspect(options.meta);
+		};
+	};
+	return msg;
+};
+
 const log = new Winston.Logger({
 	transports: [
 		new Winston.transports.Console({
 			colorize: true,
 			level: 'debug'
+			//formatter: consoleFormat
 		}),
 		new Winston.transports.File({
 			filename: 'logs/bot.log',
