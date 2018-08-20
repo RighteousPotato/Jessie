@@ -39,7 +39,7 @@ sb.allAvailable = function(arg){
 sb.reqBoard = function(){
 	if(!this.allAvailable('reqBoard')) return;
 	const guild = this.guilds.get(ids.homeSrv);
-	const chan = guild.channels.get(ids.botChan);			
+	const chan = guild.channels.get(ids.botChan);
 	chan.send('!leaderboard')
 		.then(function(message){
 			message.delete(10000);
@@ -48,9 +48,9 @@ sb.reqBoard = function(){
 			log.error('Couldn\'t request leaderboard');
 		});
 }
-sb.resetBoard = async function(user='all'){
+sb.resetBoard = async function(user){
 	if(!this.allAvailable('resetBoard')) return;
-	log.debug(`Resetting leaberboard for ${user} (${user.username}).`);
+
 	const msgFilter = (response)=>{
 		return response.author.id==ids.meowth;
 	};
@@ -58,11 +58,19 @@ sb.resetBoard = async function(user='all'){
 		return reaction.emoji.name=='❎' && reactor.id==ids.meowth;
 	};
 	const options = {max: 1, time: 10000, errors: ['time']};
-	
 	const guild = this.guilds.get(ids.homeSrv);
 	const chan = guild.channels.get(ids.botChan);
-	chan.send(`!reset_board ${user}`);
-	
+	let cmd = '!reset_board';
+	let dbg = 'Resetting leaderboard';
+	if(user instanceof Discord.User){
+		cmd+= ` ${user.id}`;
+		dbg+= ` for ${user.username}`;
+	}else{
+		return log.error('resetBoard called with an invalid argument! Board NOT reset.');
+	};
+	log.debug(dbg);
+	chan.send(cmd);
+
 	const conf = (await chan.awaitMessages(msgFilter, options)).first();
 	try{
 		await conf.awaitReactions(reactFilter, options);
