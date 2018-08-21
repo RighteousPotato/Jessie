@@ -5,7 +5,7 @@ const {ids} = require('../../data/config.json');
 module.exports = {
 	on: 'message_tCode',
 	execute(message){
-		if(message.member.roles.has(ids.tre)) return;
+		if(message.member.roles.has(ids.tre) || message.author.id===ids.sb) return;
 		const emb = new Discord.RichEmbed()
 			.setColor('ORANGE')
 			.setTitle('Flagged message')

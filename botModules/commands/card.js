@@ -13,7 +13,7 @@ module.exports = {
     async execute(message, args) {
 		let msg;
 		try{
-		const data = (await req.get(`https://sil.ph/${args[0]}.json`)).body.data;
+			const data = (await req.get(`https://sil.ph/${args[0]}.json`)).body.data;
 			if(!data) throw 'Private';
 			data.team = data.team.toLowerCase();
 			const color = data.team==='teamless' ? 0 : message.client.guilds.get(ids.homeSrv).roles.get(ids[data.team]).color;
