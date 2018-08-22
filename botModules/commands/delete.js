@@ -37,13 +37,13 @@ module.exports = {
 		try{
 			const collA = await resp.awaitReactions(filter.bind(null, [eTick, eCross]), {max: 1, time: 30000, errors: ['time']});
 			resp.clearReactions();
-			if(collA.firstKey()==eTick){
+			if(collA.firstKey()===eTick){
 				await resp.clearReactions();
 				await resp.edit(`This channel will be deleted in 30 seconds.\nIf this was done in error click the cross below to cancel.`);
 				await resp.react(eCross);
 				try{
 					const collB = await resp.awaitReactions(filter.bind(null, [eCross]), {max: 1, time: 30000});
-					if(collB.size==0){
+					if(collB.size===0){
 						channel.delete();
 					}else{
 						cancel();

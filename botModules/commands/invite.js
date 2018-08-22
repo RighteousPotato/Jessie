@@ -11,7 +11,7 @@ module.exports = {
     async execute(message, args) {
 		const server = message.guild;
 		const invites = await server.fetchInvites();
-		const everLastingInvites = invites.filter(inv=>{return inv.maxAge==0 && inv.maxUses==0});
+		const everLastingInvites = invites.filter(inv=>{return inv.maxAge===0 && inv.maxUses===0});
 		const invite = invites.get('3GuT9Ng') || everLastingInvites.first() || invites.first();
 		if(!invite) return message.channel.send('There are no invites for this server :(');
 		const emb = new Discord.RichEmbed()

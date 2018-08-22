@@ -14,7 +14,7 @@ module.exports = {
 	args: 1,
 	usage: '<@user>',
     async execute(message, args) {
-		if(message.mentions.members.size==0) return message.channel.send('You didn\'t mention a user!');
+		if(message.mentions.members.size===0) return message.channel.send('You didn\'t mention a user!');
 		const target = message.mentions.members.first();
 		const untrusted = JSON.parse(fs.readFileSync(path));
 		

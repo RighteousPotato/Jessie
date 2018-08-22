@@ -12,10 +12,9 @@ class DiscordWH extends Winston.Transport{
 		this.name = 'DiscordWH';
 		this.level = options.level || 'info';
 		this.client = new Discord.WebhookClient(options.wh.id, options.wh.token);
-		this.client.listenerCount = function(){return 0;};
 	};
 	log(level, msg, meta, callback){
-		const m = level.toUpperCase()=='ERROR' ? `<@${ids.owner}>` : '';
+		const m = level.toUpperCase()==='ERROR' ? `<@${ids.owner}>` : '';
 		const emb = new Discord.RichEmbed()
 			.setTitle((level||'LOG').toUpperCase())
 			.setColor((Winston.config.allColors[level] || 'DEFAULT').toUpperCase())

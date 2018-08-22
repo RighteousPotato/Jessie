@@ -23,7 +23,7 @@ module.exports = {
 		if(command.guildOnly && message.channel.type != 'text') return message.channel.send(`**'${commandName}'** cannot be used in DM's!`);
 		
 		//quit if DM command in guild
-		if(command.dmOnly && message.channel.type == 'text') return message.channel.send(`**'${commandName}'** can only be used in DM's!`);
+		if(command.dmOnly && message.channel.type === 'text') return message.channel.send(`**'${commandName}'** can only be used in DM's!`);
 		
 		//quit if a user/role whitelist is defined and the user isn't on it
 		if(command.users || command.roles){
@@ -64,11 +64,11 @@ module.exports = {
 		
 		//====RUN CMD====//
 		try{
-			log.debug(`CMD-${commandName} for ${message.author.username} in `+(message.channel.type=='text' ? `${message.guild.name}/${message.channel.name}` : 'DM'));
+			log.debug(`CMD-${commandName} for ${message.author.username} in `+(message.channel.type==='text' ? `${message.guild.name}/${message.channel.name}` : 'DM'));
 			command.execute(message, args);
 		}catch(err){
 			let errMsg = `${command.name} errored! Details and stack below\n${'='.repeat(55)}\n  Date: ${moment().toISOString(true)}\n  Source: `;
-			errMsg+= message.channel.type=='text' ? `${message.guild.name}/${message.channel.name}` : 'DM';
+			errMsg+= message.channel.type==='text' ? `${message.guild.name}/${message.channel.name}` : 'DM';
 			errMsg+=`/${message.author.username}\n  Args:`;
 			if(args.length>0){
 				for(const x in args){

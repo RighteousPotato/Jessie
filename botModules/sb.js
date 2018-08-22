@@ -32,7 +32,7 @@ sb.allAvailable = function(arg){
 	if(!this.guilds.has(ids.homeSrv)) return log.error(`SB doesn\'t have access to homeSrv, can\'t ${arg}`);
 	const guild = this.guilds.get(ids.homeSrv);
 	if(!guild.available || !guild.channels.has(ids.botChan) ) return log.error(`SB doesn\'t have access to botChan, ${arg}`);
-	if(!guild.members.has(ids.meowth) || guild.members.get(ids.meowth).presence.status=='offline') return log.error(`Meowth is offline, can\'t ${arg}`);
+	if(!guild.members.has(ids.meowth) || guild.members.get(ids.meowth).presence.status==='offline') return log.error(`Meowth is offline, can\'t ${arg}`);
 	return true;
 };
 
@@ -52,10 +52,10 @@ sb.resetBoard = async function(user){
 	if(!this.allAvailable('resetBoard')) return;
 
 	const msgFilter = (response)=>{
-		return response.author.id==ids.meowth;
+		return response.author.id===ids.meowth;
 	};
 	const reactFilter = (reaction, reactor)=>{
-		return reaction.emoji.name=='❎' && reactor.id==ids.meowth;
+		return reaction.emoji.name==='❎' && reactor.id===ids.meowth;
 	};
 	const options = {max: 1, time: 10000, errors: ['time']};
 	const guild = this.guilds.get(ids.homeSrv);

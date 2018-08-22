@@ -17,7 +17,7 @@ module.exports = {
 			if(!data) throw 'Private';
 			data.team = data.team.toLowerCase();
 			const color = data.team==='teamless' ? 0 : message.client.guilds.get(ids.homeSrv).roles.get(ids[data.team]).color;
-			const teamImg = message.client.emojis.find(emoji=>emoji.name==(data.team==='teamless' ? 'harmony' : data.team)).url;
+			const teamImg = message.client.emojis.find(emoji=>emoji.name===(data.team==='teamless' ? 'harmony' : data.team)).url;
 			msg = new Discord.RichEmbed()
 				.setColor(color)
 				.setTitle(data.in_game_username + '\'s Traveler Card | The Silph Road')

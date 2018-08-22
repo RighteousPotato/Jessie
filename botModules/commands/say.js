@@ -19,7 +19,7 @@ module.exports = {
 			
 			const q2 = await message.channel.send(`What do you want to say in ${target}?`);
 			try{
-				const r2 = (await message.channel.awaitMessages(response=>response.author.id==message.author.id, {maxMatches: 1, time: 60000, errors:['time']})).first();
+				const r2 = (await message.channel.awaitMessages(response=>response.author.id===message.author.id, {maxMatches: 1, time: 60000, errors:['time']})).first();
 				q2.delete();
 				r2.delete();
 				

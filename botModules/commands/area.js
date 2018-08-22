@@ -17,7 +17,7 @@ module.exports = {
 		const member = server.members.get(message.author.id);//message.member || server.members.get(message.author.id);
 		const areaRoles = ids.areas.map(id => server.roles.get(id));
 		
-		if(args.length==0){
+		if(args.length===0){
 			let flds = [
 				{name:'Subscribed', value:'', inline:true},
 				{name:'Not Subscribed', value:'', inline:true}
@@ -29,8 +29,8 @@ module.exports = {
 					flds[1].value+=`\n${areaRoles[x].name}`;
 				};
 			};
-			if(flds[0].value=='') flds[0].value = '*You aren\'t subscribed\nto any areas*';
-			if(flds[1].value=='') flds[1].value = '*You\'re subscribed\nto all areas*';
+			if(flds[0].value==='') flds[0].value = '*You aren\'t subscribed\nto any areas*';
+			if(flds[1].value==='') flds[1].value = '*You\'re subscribed\nto all areas*';
 			
 			const msg = 'Below is the current status of your area subscrptions. To change your status in a given area,'
 				+' use `'+prefix+'area <area name>` or you can use `'+prefix+'area <list of areas>` to change multiple areas at once.'
@@ -67,7 +67,7 @@ module.exports = {
 			let invalid = [];
 			
 			for(x in args){
-				const role = areaRoles.find(role => role.name.toLowerCase()==args[x].toLowerCase());
+				const role = areaRoles.find(role => role.name.toLowerCase()===args[x].toLowerCase());
 				if(role){
 					if(newRoles.has(role.id) && mode!='add'){
 						newRoles.delete(role.id);
@@ -96,7 +96,7 @@ module.exports = {
 			}else if(invalid.length>0){
 				message.reply('I didn\'t recognise any of those areas.');
 			}else{
-				message.reply('You\'re already '+(mode=='add'?'subscribed to all':'not subscribed to any')+' of those areas.');
+				message.reply('You\'re already '+(mode==='add'?'subscribed to all':'not subscribed to any')+' of those areas.');
 			};
 		};
 	}

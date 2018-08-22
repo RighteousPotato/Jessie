@@ -9,10 +9,10 @@ module.exports = {
 	users: [ids.owner],
     async execute(message, args){
 		const msgFilter = (response)=>{
-			return response.author.id==message.author.id;
+			return response.author.id===message.author.id;
 		};
 		const reactFilter = (reaction, user)=>{
-			return emoji.includes(reaction.emoji.name) && user.id==message.author.id;
+			return emoji.includes(reaction.emoji.name) && user.id===message.author.id;
 		};
 		const options = {max: 1, time: 10000, errors: ['time']};
 		const confirm = async (field)=>{
@@ -41,11 +41,11 @@ module.exports = {
 					const ans = (await message.channel.awaitMessages(msgFilter, options)).first();
 					q.delete();
 					ans.delete();
-					if(ans.content=='none') break;
+					if(ans.content==='none') break;
 					embed.setTitle(ans.content);
 					await preview.edit(embed);
 					let reaction = await confirm();
-					if(reaction==emoji[0]) break;
+					if(reaction===emoji[0]) break;
 					delete embed.title;
 					await preview.edit(embed);
 				};
@@ -54,11 +54,11 @@ module.exports = {
 					const ans = (await message.channel.awaitMessages(msgFilter, options)).first();
 					q.delete();
 					ans.delete();
-					if(ans.content=='none') break;
+					if(ans.content==='none') break;
 					embed.setDescription(ans.content);
 					await preview.edit(embed);
 					let reaction = await confirm();
-					if(reaction==emoji[0]) break;
+					if(reaction===emoji[0]) break;
 					delete embed.description;
 					await preview.edit(embed);
 				};
@@ -67,7 +67,7 @@ module.exports = {
 					const ans = (await message.channel.awaitMessages(msgFilter, options)).first();
 					q.delete();
 					ans.delete();
-					if(ans.content=='none') break;
+					if(ans.content==='none') break;
 					try{
 						embed.setImage(ans.content);
 						await preview.edit(embed);
@@ -78,7 +78,7 @@ module.exports = {
 						continue;
 					};
 					let reaction = await confirm();
-					if(reaction==emoji[0]) break;
+					if(reaction===emoji[0]) break;
 					delete embed.image;
 					await preview.edit(embed);
 				};
@@ -87,7 +87,7 @@ module.exports = {
 					const ans = (await message.channel.awaitMessages(msgFilter, options)).first();
 					q.delete();
 					ans.delete();
-					if(ans.content=='none') break;
+					if(ans.content==='none') break;
 					try{
 						embed.setThumbnail(ans.content);
 						await preview.edit(embed);
@@ -98,7 +98,7 @@ module.exports = {
 						continue;
 					};
 					let reaction = await confirm();
-					if(reaction==emoji[0]) break;
+					if(reaction===emoji[0]) break;
 					delete embed.thumbnail;
 					await preview.edit(embed);
 				};
@@ -107,11 +107,11 @@ module.exports = {
 					const ans = (await message.channel.awaitMessages(msgFilter, options)).first();
 					q.delete();
 					ans.delete();
-					if(ans.content=='none') break;
+					if(ans.content==='none') break;
 					embed.setFooter(ans.content);
 					await preview.edit(embed);
 					let reaction = await confirm();
-					if(reaction==emoji[0]) break;
+					if(reaction===emoji[0]) break;
 					delete embed.footer;
 					await preview.edit(embed);
 				};
@@ -120,7 +120,7 @@ module.exports = {
 					const ans = (await message.channel.awaitMessages(msgFilter, options)).first();
 					q.delete();
 					ans.delete();
-					if(ans.content=='none') break;
+					if(ans.content==='none') break;
 					const ansSplit = ans.content.split(/,+\s*/).filter(arg=>arg.length>0);
 					try{
 						embed.addField(ansSplit[0], ansSplit[1]);
@@ -131,7 +131,7 @@ module.exports = {
 						continue;
 					};
 					let reaction = await confirm();
-					if(reaction==emoji[1]){
+					if(reaction===emoji[1]){
 						embed.fields.pop();
 						await preview.edit(embed);
 					};
@@ -141,7 +141,7 @@ module.exports = {
 					const ans = (await message.channel.awaitMessages(msgFilter, options)).first();
 					q.delete();
 					ans.delete();
-					if(ans.mentions.channels.size==0){
+					if(ans.mentions.channels.size===0){
 						const errM = await message.channel.send('**You need to reply with a #channel mention!**');
 						errM.delete(5000);
 						continue;
@@ -159,7 +159,7 @@ module.exports = {
 						errM.delete(5000);
 						continue;
 					};
-					if(ans.content.toLowerCase()=='yes') msg = '@everyone';
+					if(ans.content.toLowerCase()==='yes') msg = '@everyone';
 					break;
 				};
 				await preview.edit(`Below is your completed announcement. Proceed to post this in ${target}?`, embed);
@@ -167,7 +167,7 @@ module.exports = {
 					await preview.react(emj);
 				};
 				reaction = (await preview.awaitReactions(reactFilter, options)).first().emoji.name;
-				if(reaction==emoji[0]){
+				if(reaction===emoji[0]){
 					target.send(msg, embed);
 					preview.edit('Announcement sent!');
 				}else{

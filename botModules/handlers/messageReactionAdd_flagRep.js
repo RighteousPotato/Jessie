@@ -7,7 +7,7 @@ module.exports = {
 	async execute(message, messageReaction, user){
 		const client = message.client;
 		const emb = new Discord.RichEmbed(message.embeds[0]);
-		if(messageReaction.emoji=='🗑'){
+		if(messageReaction.emoji==='🗑'){
 			try{
 				const msg = await client.channels.get(emb.fields[0].value).fetchMessage(emb.fields[1].value);
 				msg.delete();
@@ -38,7 +38,7 @@ module.exports = {
 					.setTitle('Error')
 					.setColor('RED');
 			};
-		}else if(messageReaction.emoji=='🆗'){
+		}else if(messageReaction.emoji==='🆗'){
 			emb.setDescription(emb.description+`\n**Marked as OK by ${user}.**`)
 				.setTitle('Message')
 				.setColor('GREEN');

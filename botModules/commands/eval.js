@@ -15,7 +15,7 @@ module.exports = {
 		try{
 			eval(args);
 		}catch(err){
-			const source = message.channel.type=='text' ? `${message.guild.name}/${message.channel.name}` : 'DM';
+			const source = message.channel.type==='text' ? `${message.guild.name}/${message.channel.name}` : 'DM';
 			const errMsg = `EVAL ERROR! Details and stack below\n${'='.repeat(55)}`
 				+`\n\tDate: ${moment().toISOString(true)}`
 				+`\n\tSource: ${source}/${message.author.username}`

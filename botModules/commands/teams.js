@@ -16,7 +16,7 @@ module.exports = {
 		const server = message.client.guilds.get(ids.homeSrv);
 		await server.fetchMembers();
 		for(const ind in teams){
-			if(!teams[ind].emoji) teams[ind].emoji = server.emojis.find(emoji=>emoji.name==teams[ind].name).toString();
+			if(!teams[ind].emoji) teams[ind].emoji = server.emojis.find(emoji=>emoji.name===teams[ind].name).toString();
 		};
 		server.members.forEach(member=>{
 			const team = member.user.bot ? teams[4] : teams.find(x=>member.roles.has(x.id)) || teams[3];
@@ -26,8 +26,8 @@ module.exports = {
 			.setColor(server.members.get(message.client.user.id).displayColor)
 			.setTitle(`${server.name} User Count`)
 	.setDescription(`${server.members.size} Total (${server.members.size-teams[4].count} humans)`)
-			.addField('\u200b', teams.filter((x, ind)=>ind%2==0).map(x=>x.emoji+' '+x.count).join('\n'), true)
-			.addField('\u200b', teams.filter((x, ind)=>ind%2==1).map(x=>x.emoji+' '+x.count).join('\n'), true);
+			.addField('\u200b', teams.filter((x, ind)=>ind%2===0).map(x=>x.emoji+' '+x.count).join('\n'), true)
+			.addField('\u200b', teams.filter((x, ind)=>ind%2===1).map(x=>x.emoji+' '+x.count).join('\n'), true);
 		message.channel.send(emb);
 	}
 };
