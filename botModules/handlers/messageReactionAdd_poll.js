@@ -5,7 +5,7 @@ module.exports = {
 	on: 'messageReactionAdd_poll',
 	execute(message, messageReaction, user){
 		const client = message.client;
-		if(message.mentions.users.size>0 && message.mentions.users.first().id===user.id && messageReaction.emoji==='⏹'){
+		if(message.mentions.users.size>0 && message.mentions.users.first().id===user.id && messageReaction.emoji.name==='⏹'){
 			const embed = new Discord.RichEmbed(message.embeds[0]);
 			const answers = embed.description.split('\n');
 			const results = message.reactions.filter(reaction=>reaction.me).map(reaction=>reaction.count-1);
