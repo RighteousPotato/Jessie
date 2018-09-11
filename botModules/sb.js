@@ -62,10 +62,10 @@ sb.resetBoard = async function(user){
 	const chan = guild.channels.get(ids.botChan);
 	let cmd = '!reset_board';
 	let dbg = 'Resetting leaderboard';
-	if(user instanceof Discord.User){
+	if(user && user instanceof Discord.User){
 		cmd+= ` ${user.id}`;
 		dbg+= ` for ${user.username}`;
-	}else{
+	}else if(user){
 		return log.error('resetBoard called with an invalid argument! Board NOT reset.');
 	};
 	log.debug(dbg);
